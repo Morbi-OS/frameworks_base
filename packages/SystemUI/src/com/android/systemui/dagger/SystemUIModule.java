@@ -47,6 +47,7 @@ import com.android.systemui.bouncer.ui.BouncerViewModule;
 import com.android.systemui.brightness.dagger.ScreenBrightnessModule;
 import com.android.systemui.classifier.FalsingModule;
 import com.android.systemui.clipboardoverlay.dagger.ClipboardOverlayModule;
+import com.android.systemui.afterlife.AfterlifeModule;
 import com.android.systemui.common.data.CommonDataLayerModule;
 import com.android.systemui.common.ui.ConfigurationStateModule;
 import com.android.systemui.common.usagestats.data.CommonUsageStatsDataLayerModule;
@@ -194,6 +195,7 @@ import javax.inject.Named;
  * may not appreciate that.
  */
 @Module(includes = {
+        AfterlifeModule.class,
         AmbientModule.class,
         AppOpsModule.class,
         AssistModule.class,
