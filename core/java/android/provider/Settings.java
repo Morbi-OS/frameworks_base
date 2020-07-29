@@ -6450,6 +6450,13 @@ public final class Settings {
         public static final String LIVE_DISPLAY_HINTED = "live_display_hinted";
 
         /**
+         * Anti flicker
+         * 0 = 0ff, 1 = on
+         * @hide
+         */
+        public static final String DISPLAY_ANTI_FLICKER = "display_anti_flicker";
+
+        /**
          * Whether auto brightness is applied one shot when screen is turned on
          * @hide
          */
@@ -6725,6 +6732,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(DISPLAY_COLOR_ADJUSTMENT);
             PRIVATE_SETTINGS.add(DISPLAY_PICTURE_ADJUSTMENT);
             PRIVATE_SETTINGS.add(LIVE_DISPLAY_HINTED);
+            PRIVATE_SETTINGS.add(DISPLAY_ANTI_FLICKER);
         }
 
         /**
