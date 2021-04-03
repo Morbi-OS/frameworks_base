@@ -1537,9 +1537,7 @@ public final class StrictMode {
                 if (SystemProperties.getBoolean(VISUAL_PROPERTY, false)) {
                     builder.penaltyFlashScreen();
                 }
-                if (Build.IS_ENG) {
-                    builder.penaltyLog();
-                }
+                builder.penaltyLog();
             }
         }
 
