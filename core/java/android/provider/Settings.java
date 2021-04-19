@@ -13027,6 +13027,13 @@ public final class Settings {
         public static final String STYLUS_POINTER_ICON_ENABLED = "stylus_pointer_icon_enabled";
 
         /**
+         * Whether user is allowed to interact with quick settings on lockscreen.
+         * @hide
+         */
+        public static final String QS_TILES_TOGGLEABLE_ON_LOCK_SCREEN =
+                "qs_tiles_toggleable_on_lock_screen";
+
+        /**
          * These entries are considered common between the personal and the managed profile,
          * since the managed profile doesn't get to change them.
          */
