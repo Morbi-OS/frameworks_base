@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-     Copyright (C) 2023 SkylineUI
+     Copyright (C) 2023 MorbiOS
      SPDX-License-Identifier: Apache-2.0
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+    <!-- Label for current user in power menu options dialog -->
+    <string name="global_action_restart_systemui">Restart SystemUI</string>
 
 </resources>
