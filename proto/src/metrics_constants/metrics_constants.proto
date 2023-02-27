@@ -7441,5 +7441,8 @@ message MetricsEvent {
     // CustomSettings constant
     CUSTOM_SETTINGS = 1999;
 
+    // MorbiOS constant
+    MORBIOS = 2000;
+
   }
 }
