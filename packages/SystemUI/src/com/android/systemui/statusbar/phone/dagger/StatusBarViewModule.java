@@ -228,7 +228,8 @@ public abstract class StatusBarViewModule {
             @Main Handler mainHandler,
             ContentResolver contentResolver,
             FeatureFlags featureFlags,
-            BatteryController batteryController
+            BatteryController batteryController,
+            ActivityStarter activityStarter
     ) {
         return new BatteryMeterViewController(
                 batteryMeterView,
@@ -238,7 +239,8 @@ public abstract class StatusBarViewModule {
                 mainHandler,
                 contentResolver,
                 featureFlags,
-                batteryController);
+                batteryController,
+                activityStarter);
 
     }
 
@@ -302,7 +304,8 @@ public abstract class StatusBarViewModule {
             OperatorNameViewController.Factory operatorNameViewControllerFactory,
             SecureSettings secureSettings,
             @Main Executor mainExecutor,
-            DumpManager dumpManager
+            DumpManager dumpManager,
+            ActivityStarter activityStarter
     ) {
         return new CollapsedStatusBarFragment(statusBarFragmentComponentFactory,
                 ongoingCallController,
@@ -324,7 +327,8 @@ public abstract class StatusBarViewModule {
                 operatorNameViewControllerFactory,
                 secureSettings,
                 mainExecutor,
-                dumpManager);
+                dumpManager,
+                activityStarter);
     }
 
     /**
