@@ -70,6 +70,15 @@ public class PropImitationHooks {
         "FINGERPRINT", "google/husky/husky:15/AP3A.241005.015/12366759:user/release-keys",
     );
 
+    private static final Map<String, String> sPixelTabletProps = Map.of(
+        "PRODUCT", "tangorpro",
+        "DEVICE", "tangorpro",
+        "MANUFACTURER", "Google",
+        "BRAND", "google",
+        "MODEL", "Pixel Tablet",
+        "FINGERPRINT", "google/tangorpro/tangorpro:15/AP3A.241005.015/12366759:user/release-keys"
+    );
+
     private static final Map<String, String> sPixelXLProps = Map.of(
         "PRODUCT", "marlin",
         "DEVICE", "marlin",
@@ -93,7 +102,7 @@ public class PropImitationHooks {
     private static volatile String sStockFp, sNetflixModel;
 
     private static volatile String sProcessName;
-    private static volatile boolean sIsGms, sIsFinsky, sIsPhotos;
+    private static volatile boolean sIsGms, sIsFinsky, sIsPhotos, sIsTablet;
 
     public static void setProps(Context context) {
         final String packageName = context.getPackageName();
@@ -113,6 +122,7 @@ public class PropImitationHooks {
         sCertifiedProps = res.getStringArray(R.array.config_certifiedBuildProperties);
         sStockFp = res.getString(R.string.config_stockFingerprint);
         sNetflixModel = res.getString(R.string.config_netflixSpoofModel);
+        sIsTablet = res.getBoolean(R.bool.config_spoofasTablet);
 
         sProcessName = processName;
         sIsGms = packageName.equals(PACKAGE_GMS) && processName.equals(PROCESS_GMS_UNSTABLE);
@@ -132,8 +142,13 @@ public class PropImitationHooks {
             setPropValue("FINGERPRINT", sStockFp);
         } else if (packageName.equals(PACKAGE_GBOARD) || packageName.equals(PACKAGE_SUBSCRIPTION_RED) || packageName.equals(PACKAGE_TURBO)
                    || packageName.equals(PACKAGE_VELVET) || packageName.equals(PACKAGE_SETUPWIZARD) || packageName.equals(PACKAGE_GMS)) {
-            dlog("Spoofing Pixel 8 Pro for: " + packageName + " process: " + processName);
-            sPixel8Props.forEach(PropImitationHooks::setPropValue);
+            if (sIsTablet) {
+                dlog("Spoofing Pixel Tablet for: " + packageName + " process: " + processName);
+                sPixelTabletProps.forEach(PropImitationHooks::setPropValue);
+            } else {
+                dlog("Spoofing Pixel 8 Pro for: " + packageName + " process: " + processName);
+                sPixel8Props.forEach(PropImitationHooks::setPropValue);
+            }
         } else if (sIsPhotos) {
             dlog("Spoofing Pixel XL for Google Photos");
             sPixelXLProps.forEach((PropImitationHooks::setPropValue));
