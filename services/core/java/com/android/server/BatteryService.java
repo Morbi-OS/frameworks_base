@@ -164,6 +164,8 @@ public final class BatteryService extends SystemService {
     private int mLastBatteryCycleCount;
     private int mLastChargingState;
     private int mLastBatteryCapacityLevel;
+    private int mLastBatteryFullCharge;
+    private int mLastBatteryFullChargeDesign;
     /**
      * The last seen charging policy. This requires the
      * {@link android.Manifest.permission#BATTERY_STATS} permission and should therefore not be
@@ -658,7 +660,10 @@ public final class BatteryService extends SystemService {
                         || mBatteryModProps.modType != mLastModType
                         || mBatteryModProps.modPowerSource != mLastModPowerSource
                         || mHealthInfo.chargingState != mLastChargingState
-                        || mHealthInfo.batteryCapacityLevel != mLastBatteryCapacityLevel)) {
+                        || mHealthInfo.batteryCapacityLevel != mLastBatteryCapacityLevel
+                        || mHealthInfo.batteryFullChargeUah != mLastBatteryFullCharge
+                        || mHealthInfo.batteryFullChargeDesignCapacityUah !=
+                                mLastBatteryFullChargeDesign)) {
 
             if (mPlugType != mLastPlugType) {
                 if (mLastPlugType == BATTERY_PLUGGED_NONE) {
@@ -879,6 +884,8 @@ public final class BatteryService extends SystemService {
             mLastBatteryCycleCount = mHealthInfo.batteryCycleCount;
             mLastChargingState = mHealthInfo.chargingState;
             mLastBatteryCapacityLevel = mHealthInfo.batteryCapacityLevel;
+            mLastBatteryFullCharge = mHealthInfo.batteryFullChargeUah;
+            mLastBatteryFullChargeDesign = mHealthInfo.batteryFullChargeDesignCapacityUah;
             mLastModLevel = mBatteryModProps.modLevel;
             mLastModStatus = mBatteryModProps.modStatus;
             mLastModFlag = mBatteryModProps.modFlag;
@@ -918,6 +925,10 @@ public final class BatteryService extends SystemService {
         intent.putExtra(BatteryManager.EXTRA_CYCLE_COUNT, mHealthInfo.batteryCycleCount);
         intent.putExtra(BatteryManager.EXTRA_CHARGING_STATUS, mHealthInfo.chargingState);
         intent.putExtra(BatteryManager.EXTRA_CAPACITY_LEVEL, mHealthInfo.batteryCapacityLevel);
+        intent.putExtra(BatteryManager.EXTRA_MAXIMUM_CAPACITY, mHealthInfo.batteryFullChargeUah);
+        intent.putExtra(
+                BatteryManager.EXTRA_DESIGN_CAPACITY,
+                mHealthInfo.batteryFullChargeDesignCapacityUah);
         intent.putExtra(BatteryManager.EXTRA_MOD_LEVEL, mBatteryModProps.modLevel);
         intent.putExtra(BatteryManager.EXTRA_MOD_STATUS, mBatteryModProps.modStatus);
         intent.putExtra(BatteryManager.EXTRA_MOD_FLAG, mBatteryModProps.modFlag);
@@ -1027,6 +1038,10 @@ public final class BatteryService extends SystemService {
         event.putInt(BatteryManager.EXTRA_CYCLE_COUNT, mHealthInfo.batteryCycleCount);
         event.putInt(BatteryManager.EXTRA_CHARGING_STATUS, mHealthInfo.chargingState);
         event.putInt(BatteryManager.EXTRA_CAPACITY_LEVEL, mHealthInfo.batteryCapacityLevel);
+        event.putInt(BatteryManager.EXTRA_MAXIMUM_CAPACITY, mHealthInfo.batteryFullChargeUah);
+        event.putInt(
+                BatteryManager.EXTRA_DESIGN_CAPACITY,
+                mHealthInfo.batteryFullChargeDesignCapacityUah);
 
         boolean queueWasEmpty = mBatteryLevelsEventQueue.isEmpty();
         mBatteryLevelsEventQueue.add(event);
@@ -1495,6 +1510,8 @@ public final class BatteryService extends SystemService {
                 pw.println("  Charging state: " + mHealthInfo.chargingState);
                 pw.println("  Charging policy: " + mHealthInfo.chargingPolicy);
                 pw.println("  Capacity level: " + mHealthInfo.batteryCapacityLevel);
+                pw.println("  Maximum capacity: " + mHealthInfo.batteryFullChargeUah);
+                pw.println("  Design capacity: " + mHealthInfo.batteryFullChargeDesignCapacityUah);
             } else {
                 Shell shell = new Shell();
                 shell.exec(mBinderService, null, fd, null, args, null, new ResultReceiver(null));
