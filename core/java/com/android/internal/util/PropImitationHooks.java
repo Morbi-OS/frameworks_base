@@ -86,15 +86,15 @@ public class PropImitationHooks {
     private static final ComponentName GMS_ADD_ACCOUNT_ACTIVITY = ComponentName.unflattenFromString(
             "com.google.android.gms/.auth.uiflows.minutemaid.MinuteMaidActivity");
 
-    private static final Map<String, String> sPixel8Props = Map.of(
-            "PRODUCT", "husky",
-            "DEVICE", "husky",
-            "HARDWARE", "husky",
+    private static final Map<String, String> sPixel9Props = Map.of(
+            "PRODUCT", "komodo",
+            "DEVICE", "komodo",
+            "HARDWARE", "komodo",
             "MANUFACTURER", "Google",
             "BRAND", "google",
-            "MODEL", "Pixel 8 Pro",
+            "MODEL", "Pixel 9 Pro XL",
             "ID", "AP3A.241005.015",
-            "FINGERPRINT", "google/husky/husky:15/AP3A.241005.015/12366759:user/release-keys"
+            "FINGERPRINT", "google/komodo/komodo:15/AP3A.241005.015/12366759:user/release-keys"
     );
 
     private static final Map<String, String> sPixel5Props = Map.of(
@@ -198,7 +198,7 @@ public class PropImitationHooks {
         /* Set Certified Properties for GMSCore
          * Set Pixel 5a to a few GMS processes
          * Set Stock Fingerprint for ARCore
-         * Set Pixel 8 Pro to some Google apps
+         * Set Pixel 9 Pro XL to some Google apps
          * Set Pixel XL for Google Photos
          * Set custom model for Netflix
          */
@@ -243,8 +243,8 @@ public class PropImitationHooks {
                     dlog("Spoofing Pixel Tablet for: " + packageName + " process: " + processName);
                     setProps(sPixelTabletProps);
                 } else {
-                    dlog("Spoofing Pixel 8 Pro for: " + packageName + " process: " + processName);
-                    setProps(sPixel8Props);
+                    dlog("Spoofing Pixel 9 Pro XL for: " + packageName + " process: " + processName);
+                    setProps(sPixel9Props);
                 }
                 return;
             case PACKAGE_GPHOTOS:
