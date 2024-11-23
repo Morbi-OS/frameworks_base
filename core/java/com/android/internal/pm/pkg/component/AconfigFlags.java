@@ -74,13 +74,13 @@ public class AconfigFlags {
         for (String fileName : defaultFlagProtoFiles) {
             File f = new File(fileName);
             if (f.isFile() && f.canRead()) {
-                try (var inputStream = new FileInputStream(fileName)) {
+                try (FileInputStream inputStream = new FileInputStream(fileName)) {
                     loadAconfigDefaultValues(inputStream.readAllBytes());
                 } catch (IOException e) {
                     Slog.e(LOG_TAG, "Failed to read Aconfig values from " + fileName, e);
                 }
             } else {
-                Slog.d(LOG_TAG, "No Aconfig flags at " + fileName);
+                Slog.w(LOG_TAG, "No Aconfig flags at " + fileName);
             }
         }
         if (Process.myUid() == Process.SYSTEM_UID) {
