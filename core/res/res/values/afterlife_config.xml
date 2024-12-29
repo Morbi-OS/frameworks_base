@@ -24,9 +24,6 @@
     <string-array name="config_deviceKeyHandlerClasses" translatable="false">
     </string-array>
 
-    <!-- Whether to spoof GMS as Pixel Tablet -->
-    <bool name="config_spoofasTablet">false</bool>
-
     <!-- Whether charging control should be enabled by default -->
     <bool name="config_chargingControlEnabled">false</bool>
 
