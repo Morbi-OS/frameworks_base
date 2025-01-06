@@ -138,6 +138,7 @@ import com.android.systemui.util.settings.SecureSettings;
 import com.android.systemui.volume.domain.interactor.VolumeDialogInteractor;
 import com.android.systemui.volume.domain.interactor.VolumePanelNavigationInteractor;
 import com.android.systemui.volume.panel.shared.flag.VolumePanelFlag;
+import com.android.systemui.volume.ui.binder.VolumeDialogMenuIconBinder;
 import com.android.systemui.volume.ui.navigation.VolumeNavigator;
 
 import com.google.common.collect.ImmutableList;
@@ -316,6 +317,7 @@ public class VolumeDialogImpl implements VolumeDialog, Dumpable,
     private int mDialogTimeoutMillis;
     private final VibratorHelper mVibratorHelper;
     private final com.android.systemui.util.time.SystemClock mSystemClock;
+    private final VolumeDialogMenuIconBinder mVolumeDialogMenuIconBinder;
     private final VolumePanelFlag mVolumePanelFlag;
     private final VolumeDialogInteractor mInteractor;
     // Optional actions for soundDose
@@ -340,6 +342,7 @@ public class VolumeDialogImpl implements VolumeDialog, Dumpable,
             DumpManager dumpManager,
             Lazy<SecureSettings> secureSettings,
             VibratorHelper vibratorHelper,
+            VolumeDialogMenuIconBinder volumeDialogMenuIconBinder,
             com.android.systemui.util.time.SystemClock systemClock,
             VolumeDialogInteractor interactor) {
         mContext =
@@ -373,6 +376,7 @@ public class VolumeDialogImpl implements VolumeDialog, Dumpable,
         mVolumePanelNavigationInteractor = volumePanelNavigationInteractor;
         mVolumeNavigator = volumeNavigator;
         mSecureSettings = secureSettings;
+        mVolumeDialogMenuIconBinder = volumeDialogMenuIconBinder;
         mDialogTimeoutMillis = DIALOG_TIMEOUT_MILLIS;
         mVolumePanelFlag = volumePanelFlag;
         mInteractor = interactor;
@@ -450,6 +454,7 @@ public class VolumeDialogImpl implements VolumeDialog, Dumpable,
         if (mDevicePostureController != null) {
             mDevicePostureController.removeCallback(mDevicePostureControllerCallback);
         }
+        mVolumeDialogMenuIconBinder.destroy();
     }
 
     @Override
@@ -685,6 +690,7 @@ public class VolumeDialogImpl implements VolumeDialog, Dumpable,
 
         mSettingsView = mDialog.findViewById(R.id.settings_container);
         mSettingsIcon = mDialog.findViewById(R.id.settings);
+        mVolumeDialogMenuIconBinder.bind(mSettingsIcon);
 
         if (mRows.isEmpty()) {
             if (!AudioSystem.isSingleVolume(mContext)) {
